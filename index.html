@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Love</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Playfair+Display:ital@0;1&family=Poppins:wght@300&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --soft-pink: #fce4ec;
+            --rose-red: #d81b60;
+            --lavender: #f3e5f5;
+            --gold: #d4af37;
+            --cream: #fffaf0;
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            background-color: var(--cream);
+        }
+
+        /* --- Animations --- */
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            15% { transform: scale(1.1); }
+            30% { transform: scale(1); }
+            45% { transform: scale(1.15); }
+            60% { transform: scale(1); }
+        }
+
+        @keyframes floating {
+            0% { transform: translateY(0px) rotate(0deg); opacity: 0; }
+            50% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- Landing Page --- */
+        #landing-page {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, var(--soft-pink), var(--lavender));
+            text-align: center;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            color: var(--rose-red);
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .envelope-container {
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .envelope {
+            font-size: 80px;
+            animation: heartbeat 2s infinite;
+            display: block;
+        }
+
+        .touch-text {
+            color: var(--rose-red);
+            font-weight: bold;
+            margin-top: 10px;
+            letter-spacing: 3px;
+        }
+
+        /* --- Second Page --- */
+        #main-content {
+            display: none;
+            min-height: 100vh;
+            padding: 40px 20px;
+            background: var(--cream);
+            text-align: center;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 50px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            border: 1px solid var(--soft-pink);
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--gold);
+        }
+
+        .card-icon {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        /* --- Modals --- */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: var(--cream);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 90%;
+            max-height: 80%;
+            overflow-y: auto;
+            position: relative;
+            text-align: center;
+            border: 3px solid var(--gold);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 10px; right: 20px;
+            font-size: 30px;
+            cursor: pointer;
+            color: var(--rose-red);
+        }
+
+        .cursive {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.8rem;
+            color: var(--rose-red);
+        }
+
+        .btn-music {
+            background: var(--rose-red);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            box-shadow: 0 4px 15px rgba(216, 27, 96, 0.4);
+        }
+
+        /* --- Floating Hearts --- */
+        .heart-particle {
+            position: fixed;
+            color: var(--rose-red);
+            font-size: 20px;
+            user-select: none;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        img, video {
+            max-width: 100%;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="landing-page">
+        <h1 class="title">THIS IS FOR YOU MY PARTNER</h1>
+        <div class="envelope-container" onclick="openWebsite()">
+            <span class="envelope">💌</span>
+            <p class="touch-text">TOUCH</p>
+        </div>
+    </div>
+
+    <div id="main-content">
+        <h2 class="cursive" style="font-size: 3rem;">Our Love Story</h2>
+        
+        <div class="grid">
+            <div class="card" onclick="openModal('modal1')">
+                <div class="card-icon">📸</div>
+                <h3>Image Memory</h3>
+                <p>A moment frozen in time...</p>
+            </div>
+            <div class="card" onclick="openModal('modal2')">
+                <div class="card-icon">🎥</div>
+                <h3>Video Memory</h3>
+                <p>Our story in motion.</p>
+            </div>
+            <div class="card" onclick="openModal('modal3')">
+                <div class="card-icon">🎵</div>
+                <h3>Our Song</h3>
+                <p>The rhythm of our hearts.</p>
+            </div>
+            <div class="card" onclick="openModal('modal4')">
+                <div class="card-icon">✍️</div>
+                <h3>Words of Love</h3>
+                <p>Romantic thoughts for you.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal1')">&times;</span>
+            <img src="https://photos.app.goo.gl/Ctszi9mZye3Woztg8" alt="Memory">
+            <p class="cursive">Every time I look at this, I fall for you all over again.</p>
+        </div>
+    </div>
+
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal2')">&times;</span>
+            <p class="cursive">Press to watch our special moment</p>
+            <a href="https://photos.app.goo.gl/83PZs1Yz7MqDW4XJ6" target="_blank" class="btn-music">Play Video Memory</a>
+        </div>
+    </div>
+
+    <div id="modal3" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal3')">&times;</span>
+            <div style="font-size: 50px;">❤️</div>
+            <h3 class="cursive">Our Song</h3>
+            <p>Whenever I hear this, I think of us.</p>
+            <a href="https://open.spotify.com/track/1zC72lN3o0iuvEMfoBTbhn?si=JAqEyJGdTvCBl3UxGlwlTg_t" target="_blank" class="btn-music">Open Spotify</a>
+        </div>
+    </div>
+
+    <div id="modal4" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal('modal4')">&times;</span>
+            <p class="cursive">"I saw that you were perfect, and so I loved you. Then I saw that you were not perfect and I loved you even more."</p>
+            <hr style="border: 0; border-top: 1px solid var(--soft-pink); margin: 20px 0;">
+            <p class="cursive">"In all the world, there is no heart for me like yours."</p>
+        </div>
+    </div>
+
+    <script>
+        // Transition to second page
+        function openWebsite() {
+            const lp = document.getElementById('landing-page');
+            const mc = document.getElementById('main-content');
+            
+            lp.style.opacity = '0';
+            setTimeout(() => {
+                lp.style.display = 'none';
+                mc.style.display = 'block';
+                createHearts();
+            }, 1000);
+        }
+
+        // Modal Controls
+        function openModal(id) {
+            document.getElementById(id).style.display = 'flex';
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+
+        // Floating Hearts Background
+        function createHearts() {
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.innerHTML = '❤️';
+                heart.classList.add('heart-particle');
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.animation = `floating ${Math.random() * 3 + 3}s linear forwards`;
+                document.body.appendChild(heart);
+                
+                setTimeout(() => { heart.remove(); }, 6000);
+            }, 300);
+        }
+    </script>
+</body>
+</html>
